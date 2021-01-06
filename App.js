@@ -10,6 +10,7 @@ import Login from "./screens/Login";
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider, Layout, Text } from "@ui-kitten/components";
 import { default as theme } from "./assets/custom-theme.json";
+import Home from "./screens/Home";
 
 const Stack = createStackNavigator();
 
@@ -17,11 +18,13 @@ export default function App() {
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.dark, ...theme }}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Log In" headerMode={false}>
+        <Stack.Navigator initialRouteName="Home" headerMode={false}>
           <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="Log In" component={Login} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Home" component={Home} />
         </Stack.Navigator>
       </NavigationContainer>
+      <StatusBar style="light" />
     </ApplicationProvider>
   );
 }
