@@ -27,16 +27,54 @@ import { Feather, EvilIcons, Ionicons } from "@expo/vector-icons";
 import Post from "../components/Post";
 
 const data = [
-  { id: 1, userName: "ken" },
-  { id: 2, userName: "kenneth" },
-  { id: 3, userName: "kenny" },
+  {
+    id: 1,
+    userName: "ken",
+    profilePic:
+      "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-bmw-m4-coupe-111-1600787953.jpg?crop=0.747xw:0.630xh;0.111xw,0.370xh&resize=1200:*",
+    caption:
+      "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
+    likes: 88,
+    mainImg:
+      "https://cdn.bmwblog.com/wp-content/uploads/2020/11/2021-bmw-m4-toronto-red-08-1536x1024.jpg",
+  },
+  {
+    id: 2,
+    userName: "harry",
+    profilePic:
+      "https://cdn.slashgear.com/wp-content/uploads/2019/07/P6286325-1280x720.jpg",
+    caption:
+      "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
+    likes: 88,
+    mainImg:
+      "https://cdn.slashgear.com/wp-content/uploads/2019/07/P6286325-1280x720.jpg",
+  },
+  {
+    id: 3,
+    userName: "tom",
+    profilePic:
+      "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-bmw-m4-coupe-111-1600787953.jpg?crop=0.747xw:0.630xh;0.111xw,0.370xh&resize=1200:*",
+    caption:
+      "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
+    likes: 88,
+    mainImg:
+      "https://cdn.motor1.com/images/mgl/KpGLN/s1/2021-bentley-bentayga.webp",
+  },
 ];
 
 const Feed = () => {
   let [fontsLoaded] = useFonts({
     Redressed_400Regular,
   });
-  const renderItem = ({ item }) => <Post userName={item.userName} />;
+  const renderItem = ({ item }) => (
+    <Post
+      userName={item.userName}
+      profilePic={item.profilePic}
+      caption={item.caption}
+      likes={item.likes}
+      mainImg={item.mainImg}
+    />
+  );
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -53,7 +91,7 @@ const Feed = () => {
         renderItem={renderItem}
         keyExtractor={(item) => item.userName}
       />
-      <Post />
+      {/* <Post /> */}
     </Layout>
   );
 };

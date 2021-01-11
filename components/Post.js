@@ -25,7 +25,7 @@ import AppLoading from "expo-app-loading";
 import { useFonts, Redressed_400Regular } from "@expo-google-fonts/redressed";
 import { Feather, EvilIcons, Ionicons } from "@expo/vector-icons";
 
-const Post = ({ userName }) => {
+const Post = ({ userName, profilePic, caption, likes, mainImg }) => {
   let [fontsLoaded] = useFonts({
     Redressed_400Regular,
   });
@@ -40,7 +40,7 @@ const Post = ({ userName }) => {
         <View style={styles.card}>
           <View style={styles.cardTop}>
             <View style={styles.cardTopLeft}>
-              <Avatar source={require("../assets/4.jpeg")} />
+              <Avatar source={{ uri: profilePic }} />
               <Text style={styles.username}>{userName}</Text>
             </View>
             <Feather
@@ -50,7 +50,7 @@ const Post = ({ userName }) => {
               color="black"
             />
           </View>
-          <Image style={styles.image} source={require("../assets/3.jpeg")} />
+          <Image style={styles.image} source={{ uri: mainImg }} />
           <View style={styles.iconRow}>
             <EvilIcons
               style={styles.iconRowItems}
@@ -71,13 +71,10 @@ const Post = ({ userName }) => {
               color="white"
             />
           </View>
-          <Text style={styles.likesText}>67 likes</Text>
+          <Text style={styles.likesText}>{likes} likes</Text>
           <Text style={{ marginLeft: 16, marginRight: 16 }}>
             <Text style={styles.username}>username </Text>
-            <Text style={styles.descriptionText}>
-              This is my instagram clone app by Ken This is my instagram clone
-              app by Ken This is my instagram clone app by Ken
-            </Text>
+            <Text style={styles.descriptionText}>{caption}</Text>
           </Text>
           {/* COMMENTS */}
           <Text style={{ color: "grey", marginLeft: 16, fontWeight: "bold" }}>
@@ -156,6 +153,7 @@ const styles = StyleSheet.create({
   },
   image: {
     height: 332,
+    width: "100%",
     alignSelf: "center",
   },
   iconRow: {
