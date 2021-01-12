@@ -24,9 +24,9 @@ const BottomTabBar = ({ navigation, state }) => (
     selectedIndex={state.index}
     onSelect={(index) => navigation.navigate(state.routeNames[index])}
   >
-    <BottomNavigationTab icon={HomeIcon} title="Home" />
-    <BottomNavigationTab icon={PlusIcon} title="Add Post" />
-    <BottomNavigationTab icon={ProfileIcon} title="Profile" />
+    <BottomNavigationTab icon={HomeIcon} />
+    <BottomNavigationTab icon={PlusIcon} />
+    <BottomNavigationTab icon={ProfileIcon} />
   </BottomNavigation>
 );
 
