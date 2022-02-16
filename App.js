@@ -36,7 +36,9 @@ export default function App() {
               <NavigationContainer>
                 {!ctx.loading && !ctx.authenticated && (<Stack.Navigator initialRouteName="Login" headerMode={false}>
                   <Stack.Screen name="Register" component={Register} />
-                  <Stack.Screen name="Login" component={Login} />
+                  <Stack.Screen name="Login">
+                    {props => <Login {...props} loginUser={ctx.loginUser} />}
+                  </Stack.Screen>
                 </Stack.Navigator>)}
 
                 {!ctx.loading && ctx.authenticated && (<Stack.Navigator initialRouteName="Home" headerMode={false}>

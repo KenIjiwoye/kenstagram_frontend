@@ -1,4 +1,5 @@
 import React from 'react'
+import {signinUser,registerUser} from '../services/authService'
 
 export const AuthContext = React.createContext();
 
@@ -20,6 +21,25 @@ export default function AuthProvider({children}){
         }
       }
 
+      const loginUser = async (identifier, password) => {
+        signinUser(identifier,password)
+        .then(async u => {
+            setLoading(false)
+            setAuthToken(u.jwt);
+            setAuthenticated(true);
+            const token = JSON.stringify(u.jwt)
+            try {
+                await AsyncStorage.setItem('@authToken', token)
+            } catch (err) {
+                console.warn('asyncstorage error',err)
+            }
+        })
+        .catch(err => {
+            setLoading(false)
+            console.warn(err)
+        })
+      }
+
       React.useEffect(() => {
         // const value = AsyncStorage.getItem('@authToken')
         // console.log('effect storage value', value)
@@ -35,7 +55,8 @@ export default function AuthProvider({children}){
             loading,
             setAuthToken,
             setAuthenticated,
-            setLoading
+            setLoading,
+            loginUser
         }}>
             {children}
         </AuthContext.Provider>
