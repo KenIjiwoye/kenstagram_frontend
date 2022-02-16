@@ -34,11 +34,14 @@ export default function App() {
           return (
             <ApplicationProvider {...eva} theme={{ ...eva.dark, ...theme }}>
               <NavigationContainer>
-                <Stack.Navigator initialRouteName="Home" headerMode={false}>
+                {!ctx.loading && !ctx.authenticated && (<Stack.Navigator initialRouteName="Login" headerMode={false}>
                   <Stack.Screen name="Register" component={Register} />
                   <Stack.Screen name="Login" component={Login} />
+                </Stack.Navigator>)}
+
+                {!ctx.loading && ctx.authenticated && (<Stack.Navigator initialRouteName="Home" headerMode={false}>
                   <Stack.Screen name="Home" component={Home} />
-                </Stack.Navigator>
+                </Stack.Navigator>)}
               </NavigationContainer>
               <StatusBar style="light" />
             </ApplicationProvider>
