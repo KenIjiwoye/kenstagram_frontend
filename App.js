@@ -30,19 +30,21 @@ export default function App() {
       <AuthProvider>
       <AuthContext.Consumer>
         {ctx => {
-          console.log('ctx new', ctx)
+          console.log('Auth Context =====>>>>', ctx)
           return (
             <ApplicationProvider {...eva} theme={{ ...eva.dark, ...theme }}>
               <NavigationContainer>
-                {!ctx.loading && !ctx.authenticated && (<Stack.Navigator initialRouteName="Login" headerMode={false}>
+                {!ctx.loading && !ctx.authenticated && (ctx.authToken === null) && (<Stack.Navigator initialRouteName="Login" headerMode={false}>
                   <Stack.Screen name="Register" component={Register} />
                   <Stack.Screen name="Login">
                     {props => <Login {...props} loginUser={ctx.loginUser} />}
                   </Stack.Screen>
                 </Stack.Navigator>)}
 
-                {!ctx.loading && ctx.authenticated && (<Stack.Navigator initialRouteName="Home" headerMode={false}>
-                  <Stack.Screen name="Home" component={Home} />
+                {!ctx.loading && ctx.authenticated && (ctx.authToken !== null) && (<Stack.Navigator initialRouteName="Home" headerMode={false}>
+                  <Stack.Screen name="Home">
+                    {props => <Home {...props} authContext={ctx} />}
+                  </Stack.Screen>
                 </Stack.Navigator>)}
               </NavigationContainer>
               <StatusBar style="light" />

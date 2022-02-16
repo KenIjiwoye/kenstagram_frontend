@@ -2,7 +2,12 @@ import React from "react";
 import { Layout, Input, Button, Divider, Avatar } from "@ui-kitten/components";
 import { View, Text, SafeAreaView, StyleSheet, StatusBar } from "react-native";
 
-const Profile = () => {
+const Profile = ({navigation, authCtx}) => {
+
+  const signOut = async () => {
+    console.log('logging out')
+    await authCtx.logoutUser()
+  }
   return (
     <Layout style={styles.container}>
       <SafeAreaView
@@ -71,6 +76,9 @@ const Profile = () => {
         {/* EDIT PROFILE BUTTON IF CURRENT USER  */}
         <Button style={{ marginTop: 16, height: 40 }} appearance="outline">
           Edit Profile
+        </Button>
+        <Button onPress={signOut}  style={{ marginTop: 16, height: 40 }} appearance="outline">
+          Temporary Logout
         </Button>
         <Divider style={{ marginTop: 8 }} />
       </SafeAreaView>

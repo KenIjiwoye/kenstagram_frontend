@@ -6,6 +6,7 @@ import {
   BottomNavigationTab,
   Icon,
 } from "@ui-kitten/components";
+import AuthProvider, { AuthContext } from "../contexts/AuthContext";
 
 import Profile from "./Profile";
 import Feed from "./Feed";
@@ -35,14 +36,16 @@ const useBottomNavigationState = (initialState = 0) => {
   return { selectedIndex, onSelect: setSelectedIndex };
 };
 
-const Home = () => {
+const Home = ({ authContext }) => {
   return (
     <Tab.Navigator tabBar={(props) => <BottomTabBar {...props} />}>
       <Tab.Screen name="Home" component={Feed} />
       <Tab.Screen name="Add Post" component={AddPost} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Profile">
+        {props => <Profile {...props} authCtx={authContext} />}
+      </Tab.Screen>
     </Tab.Navigator>
-  );
+  )
 };
 
 export default Home;
