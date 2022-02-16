@@ -28,16 +28,18 @@ export default function AuthProvider({ children }) {
   const loginUser = async (identifier, password) => {
     signinUser(identifier, password)
       .then(async u => {
-        // setLoading(false)
+        setLoading(true)
         setAuthToken(u.jwt);
         setAuthenticated(true);
         const token = JSON.stringify(u.jwt)
         try {
           await AsyncStorage.setItem('@authToken', token)
+          setLoading(false);
         } catch (err) {
           console.warn('asyncstorage error', err)
           setAuthToken(null);
           setAuthenticated(false);
+          setLoading(false);
         }
       })
       .catch(err => {
@@ -49,12 +51,15 @@ export default function AuthProvider({ children }) {
   }
 
   const logoutUser = async () => {
+    setLoading(true);
     try {
       await AsyncStorage.clear();
       setAuthenticated(false);
       setAuthToken(null);
+      setLoading(false);
     } catch (err) {
       console.warn(err);
+      setLoading(false);
 
     }
   }
