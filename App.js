@@ -19,6 +19,7 @@ import {
 } from "@ui-kitten/components";
 import { default as theme } from "./assets/custom-theme.json";
 import Home from "./screens/Home";
+import Loading from "./components/Loading";
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,7 @@ export default function App() {
           return (
             <ApplicationProvider {...eva} theme={{ ...eva.dark, ...theme }}>
               <NavigationContainer>
+                {ctx.loading && (<Loading />)}
                 {!ctx.loading && !ctx.authenticated && (ctx.authToken === null) && (<Stack.Navigator initialRouteName="Login" headerMode={false}>
                   <Stack.Screen name="Register" component={Register} />
                   <Stack.Screen name="Login">
