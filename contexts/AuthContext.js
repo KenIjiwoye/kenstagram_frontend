@@ -1,5 +1,6 @@
 import React from 'react'
 import {signinUser,registerUser} from '../services/authService'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const AuthContext = React.createContext();
 
@@ -13,11 +14,14 @@ export default function AuthProvider({children}){
           const value = await AsyncStorage.getItem('@authToken')
           if (value !== null) {
             // value previously stored
-            console.log('storage value', value)
-            setAuthToken(value)
+            console.log('storage value', value);
+            setAuthToken(value);
+            setAuthenticated(true);
           }
         } catch (e) {
           // error reading value
+          setAuthToken(null);
+            setAuthenticated(false);
         }
       }
 
@@ -40,6 +44,16 @@ export default function AuthProvider({children}){
         })
       }
 
+      const logoutUser = async () => {
+        try {
+          await AsyncStorage.removeItem('@authToken');
+          setAuthenticated(false);
+          setAuthToken(null);
+        } catch (err) {
+          console.warn(err);
+        }
+      }
+
       React.useEffect(() => {
         // const value = AsyncStorage.getItem('@authToken')
         // console.log('effect storage value', value)
@@ -56,7 +70,8 @@ export default function AuthProvider({children}){
             setAuthToken,
             setAuthenticated,
             setLoading,
-            loginUser
+            loginUser,
+            logoutUser
         }}>
             {children}
         </AuthContext.Provider>
