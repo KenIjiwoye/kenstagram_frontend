@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ig-clone-v2",
-    "slug": "ig-clone-v2",
+    "name": "ig-clone",
+    "slug": "ig-clone",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "fun clone of instagram using react native, FirebaseAuth, Firestore, and Firebase Hosting\n\n",
+    "githubUrl": "https://github.com/KenIjiwoye/ig-clone-rn"
   }
 }
