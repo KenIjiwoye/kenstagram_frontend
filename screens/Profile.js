@@ -1,6 +1,6 @@
 import React from "react";
-import { Layout, Input, Button, Divider, Avatar } from "@ui-kitten/components";
-import { View, Text, SafeAreaView, StyleSheet, StatusBar } from "react-native";
+import { Layout, Button, Divider, Avatar, List } from "@ui-kitten/components";
+import { View, Text, SafeAreaView, StyleSheet, StatusBar, Image, FlatList } from "react-native";
 
 const Profile = ({navigation, authCtx}) => {
 
@@ -8,6 +8,81 @@ const Profile = ({navigation, authCtx}) => {
     console.log('logging out')
     await authCtx.logoutUser()
   }
+
+  const data = [
+    {
+      id: 1,
+      userName: "ken",
+      profilePic:
+        "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-bmw-m4-coupe-111-1600787953.jpg?crop=0.747xw:0.630xh;0.111xw,0.370xh&resize=1200:*",
+      caption:
+        "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
+      likes: 88,
+      mainImg:
+        "https://cdn.bmwblog.com/wp-content/uploads/2020/11/2021-bmw-m4-toronto-red-08-1536x1024.jpg",
+    },
+    {
+      id: 2,
+      userName: "harry",
+      profilePic:
+        "https://cdn.slashgear.com/wp-content/uploads/2019/07/P6286325-1280x720.jpg",
+      caption:
+        "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
+      likes: 88,
+      mainImg:
+        "https://cdn.slashgear.com/wp-content/uploads/2019/07/P6286325-1280x720.jpg",
+    },
+    {
+      id: 3,
+      userName: "tom",
+      profilePic:
+        "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-bmw-m4-coupe-111-1600787953.jpg?crop=0.747xw:0.630xh;0.111xw,0.370xh&resize=1200:*",
+      caption:
+        "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
+      likes: 88,
+      mainImg:
+        "https://cdn.motor1.com/images/mgl/KpGLN/s1/2021-bentley-bentayga.webp",
+    },
+    {
+      id: 4,
+      userName: "ken",
+      profilePic:
+        "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-bmw-m4-coupe-111-1600787953.jpg?crop=0.747xw:0.630xh;0.111xw,0.370xh&resize=1200:*",
+      caption:
+        "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
+      likes: 88,
+      mainImg:
+        "https://cdn.bmwblog.com/wp-content/uploads/2020/11/2021-bmw-m4-toronto-red-08-1536x1024.jpg",
+    },
+    {
+      id: 5,
+      userName: "harry",
+      profilePic:
+        "https://cdn.slashgear.com/wp-content/uploads/2019/07/P6286325-1280x720.jpg",
+      caption:
+        "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
+      likes: 88,
+      mainImg:
+        "https://cdn.slashgear.com/wp-content/uploads/2019/07/P6286325-1280x720.jpg",
+    },
+    {
+      id: 6,
+      userName: "tom",
+      profilePic:
+        "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-bmw-m4-coupe-111-1600787953.jpg?crop=0.747xw:0.630xh;0.111xw,0.370xh&resize=1200:*",
+      caption:
+        "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
+      likes: 88,
+      mainImg:
+        "https://cdn.motor1.com/images/mgl/KpGLN/s1/2021-bentley-bentayga.webp",
+    },
+    
+  ];
+
+  const renderItem = ({ item, index }) => (
+    <Image source={{ uri: `${item.mainImg}`}} style={styles.thumbnail} />
+  );
+
   return (
     <Layout style={styles.container}>
       <SafeAreaView
@@ -81,6 +156,12 @@ const Profile = ({navigation, authCtx}) => {
           Temporary Logout
         </Button>
         <Divider style={{ marginTop: 8 }} />
+        <FlatList
+        data={data}
+        renderItem={renderItem}
+        // horizontal
+        numColumns={3}
+         />
       </SafeAreaView>
     </Layout>
   );
@@ -104,6 +185,11 @@ const styles = StyleSheet.create({
   description: {
     marginTop: 16,
   },
+  thumbnail: {
+    width: 130,
+    height: 130,
+    marginHorizontal: 2
+  }
 });
 
 export default Profile;
