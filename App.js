@@ -8,6 +8,9 @@ import Register from "./screens/Register";
 import Login from "./screens/Login";
 // Context
 import AuthProvider, { AuthContext } from "./contexts/AuthContext";
+// react-query
+import { QueryClient, QueryClientProvider } from 'react-query'
+
 
 // UI Kitten
 import * as eva from "@eva-design/eva";
@@ -23,38 +26,42 @@ import Loading from "./components/Loading";
 
 const Stack = createStackNavigator();
 
+const queryClient = new QueryClient()
+
 export default function App() {
 
   return (
     <>
       <IconRegistry icons={EvaIconsPack} />
-      <AuthProvider>
-      <AuthContext.Consumer>
-        {ctx => {
-          console.log('Auth Context =====>>>>', ctx)
-          return (
-            <ApplicationProvider {...eva} theme={{ ...eva.dark, ...theme }}>
-              <NavigationContainer>
-                {ctx.loading && (<Loading />)}
-                {!ctx.loading && !ctx.authenticated && (ctx.authToken === null) && (<Stack.Navigator initialRouteName="Login" headerMode={false}>
-                  <Stack.Screen name="Register" component={Register} />
-                  <Stack.Screen name="Login">
-                    {props => <Login {...props} loginUser={ctx.loginUser} />}
-                  </Stack.Screen>
-                </Stack.Navigator>)}
+      <QueryClientProvider client={queryClient} >
+        <AuthProvider>
+          <AuthContext.Consumer>
+            {ctx => {
+              console.log('Auth Context =====>>>>', ctx)
+              return (
+                <ApplicationProvider {...eva} theme={{ ...eva.dark, ...theme }}>
+                  <NavigationContainer>
+                    {ctx.loading && (<Loading />)}
+                    {!ctx.loading && !ctx.authenticated && (ctx.authToken === null) && (<Stack.Navigator initialRouteName="Login" headerMode={false}>
+                      <Stack.Screen name="Register" component={Register} />
+                      <Stack.Screen name="Login">
+                        {props => <Login {...props} loginUser={ctx.loginUser} />}
+                      </Stack.Screen>
+                    </Stack.Navigator>)}
 
-                {!ctx.loading && ctx.authenticated && (ctx.authToken !== null) && (<Stack.Navigator initialRouteName="Home" headerMode={false}>
-                  <Stack.Screen name="Home">
-                    {props => <Home {...props} authContext={ctx} />}
-                  </Stack.Screen>
-                </Stack.Navigator>)}
-              </NavigationContainer>
-              <StatusBar style="light" />
-            </ApplicationProvider>
-          )
-        }}
-      </AuthContext.Consumer>
-      </AuthProvider>
+                    {!ctx.loading && ctx.authenticated && (ctx.authToken !== null) && (<Stack.Navigator initialRouteName="Home" headerMode={false}>
+                      <Stack.Screen name="Home">
+                        {props => <Home {...props} authContext={ctx} />}
+                      </Stack.Screen>
+                    </Stack.Navigator>)}
+                  </NavigationContainer>
+                  <StatusBar style="light" />
+                </ApplicationProvider>
+              )
+            }}
+          </AuthContext.Consumer>
+        </AuthProvider>
+      </QueryClientProvider>
     </>
   );
 }
