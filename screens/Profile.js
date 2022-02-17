@@ -2,20 +2,25 @@ import React from "react";
 import { Layout, Button, Divider, Avatar, List } from "@ui-kitten/components";
 import { View, Text, SafeAreaView, StyleSheet, StatusBar, Image, FlatList } from "react-native";
 import {getUserPosts} from '../services/postService'
+import {useQuery} from 'react-query'
+import Loading from "../components/Loading";
+import CONSTANTS, {baseUrl} from "../constants";
 
 const Profile = ({navigation, authCtx}) => {
+  const userId = 1;
+  const { isLoading, isError, data, error } = useQuery(['posts', userId], () => getUserPosts(userId))
 
-  React.useEffect(() => {
-    getUserPosts(1)
-      .then(res => console.log('this is my posts', res))
-  },[])
+  // React.useEffect(() => {
+  //   getUserPosts(1)
+  //     .then(res => console.log('this is my posts', res))
+  // },[])
 
   const signOut = async () => {
     console.log('logging out')
     await authCtx.logoutUser()
   }
 
-  const data = [
+  const mData = [
     {
       id: 1,
       userName: "ken",
@@ -85,9 +90,26 @@ const Profile = ({navigation, authCtx}) => {
     
   ];
 
-  const renderItem = ({ item, index }) => (
-    <Image source={{ uri: `${item.mainImg}`}} style={styles.thumbnail} />
-  );
+
+  const renderItem = ({ item }) => {
+    console.warn('LOGGING THE renderItem ==>>', item.attributes.image.data.attributes.formats.medium)
+    return(
+      <Image source={{ uri: `${baseUrl}${item.attributes.image.data.attributes.formats.medium.url}`}} style={styles.thumbnail} />
+    )
+  };
+  // const renderItem = ({ item, index }) => (
+  //   <Image source={{ uri: `${item.mainImg}`}} style={styles.thumbnail} />
+  // );
+
+  if (isLoading){
+   return <Loading />
+  }
+
+  if (isError) {
+    return <Text>Error: {error.message}</Text>
+  }
+
+  console.warn('the data from react query', data.data)
 
   return (
     <Layout style={styles.container}>
@@ -163,8 +185,9 @@ const Profile = ({navigation, authCtx}) => {
         </Button>
         <Divider style={{ marginTop: 8 }} />
         <FlatList
-        data={data}
+        data={data.data}
         renderItem={renderItem}
+        keyExtractor={item => item.id}
         // horizontal
         numColumns={3}
          />

@@ -12,7 +12,7 @@ const postRequest = async (url, data, action) => {
             method: action,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ1MDYwOTUxLCJleHAiOjE2NDc2NTI5NTF9.UrNU8pTPN4hH28jmu_e5J1z3hBTb_1J18YZm9l4YV5M'}`
+                'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ1MDk0Mjk0LCJleHAiOjE2NDc2ODYyOTR9.YPoTWo6sGI1yY2HDYKB7GfjOhKvl1wuUJ7lClTea2fU'}`
             }
         });
         return res.json();
@@ -21,7 +21,7 @@ const postRequest = async (url, data, action) => {
             method: action,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ1MDYwOTUxLCJleHAiOjE2NDc2NTI5NTF9.UrNU8pTPN4hH28jmu_e5J1z3hBTb_1J18YZm9l4YV5M'}`
+                'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ1MDk0Mjk0LCJleHAiOjE2NDc2ODYyOTR9.YPoTWo6sGI1yY2HDYKB7GfjOhKvl1wuUJ7lClTea2fU'}`
             },
             body: JSON.stringify(data)
         });
@@ -47,7 +47,8 @@ export const getUserPosts = (currentUserId) => {
             id: {
                 $eq: currentUserId
             }
-        }
+        },
+        populate: '*'
       }, {
         encodeValuesOnly: true,
       });
