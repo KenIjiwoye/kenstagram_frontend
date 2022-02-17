@@ -1,8 +1,14 @@
 import React from "react";
 import { Layout, Button, Divider, Avatar, List } from "@ui-kitten/components";
 import { View, Text, SafeAreaView, StyleSheet, StatusBar, Image, FlatList } from "react-native";
+import {getUserPosts} from '../services/postService'
 
 const Profile = ({navigation, authCtx}) => {
+
+  React.useEffect(() => {
+    getUserPosts(1)
+      .then(res => console.log('this is my posts', res))
+  },[])
 
   const signOut = async () => {
     console.log('logging out')
