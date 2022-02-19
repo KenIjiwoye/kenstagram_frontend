@@ -92,7 +92,7 @@ const Profile = ({navigation, authCtx}) => {
 
 
   const renderItem = ({ item }) => {
-    console.warn('LOGGING THE renderItem ==>>', item.attributes.image.data.attributes.formats.medium)
+    // console.warn('LOGGING THE renderItem ==>>', item.attributes.user_id)
     return(
       <Image source={{ uri: `${baseUrl}${item.attributes.image.data.attributes.formats.medium.url}`}} style={styles.thumbnail} />
     )
@@ -109,7 +109,7 @@ const Profile = ({navigation, authCtx}) => {
     return <Text>Error: {error.message}</Text>
   }
 
-  console.warn('the data from react query', data.data)
+  console.warn('the data from react query', data)
 
   return (
     <Layout style={styles.container}>

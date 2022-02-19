@@ -40,15 +40,16 @@ export const getPost = (postId) => {
 }
 
 export const getUserPosts = (currentUserId) => {
+    // posts?populate=*&filters[user_id][id][$eq]=1
     const query = qs.stringify({
         populate: '*',
-        populate: 'user_id',
         filters: {
-            id: {
-                $eq: currentUserId
+            user_id: {
+                id: {
+                    $eq: currentUserId
+                }
             }
-        },
-        populate: '*'
+        }
       }, {
         encodeValuesOnly: true,
       });
