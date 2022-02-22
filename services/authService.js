@@ -1,20 +1,29 @@
 import CONSTANTS from "../constants";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const authData = async (url,data,action) => {
+const authRequest = async (url,payload,action) => {
     const res = await fetch(url, {
         method: action,
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({user: data})
+        body: JSON.stringify({user: payload})
     });
     return res.json();
 }
 
-export const signinUser = (username,password) => {
+export const signinUser = async (username,password) => {
     const user = {username,password}
-    return authData(CONSTANTS.SIGNIN_URL,user,'POST')
+    const opts = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({user: user})
+    }
+    let res = await fetch(`${CONSTANTS.SIGNIN_URL}`, opts)
+    return res.json();
+    // return authRequest(CONSTANTS.SIGNIN_URL,user,'POST')
 }
 
 export const signoutUser = async () => {
@@ -31,5 +40,5 @@ export const signoutUser = async () => {
 
 export const registerUser = (username,email,password) => {
     const user = {username,email,password}
-    return authData(CONSTANTS.REGISTER_URL,user,'POST')
+    return authRequest(CONSTANTS.REGISTER_URL,user,'POST')
 }

@@ -16,9 +16,11 @@ const Login = ({ navigation, loginUser }) => {
     }
   });
   const onSubmit = data => {
-    console.log(data)
+    const {username,password} = data;
+    console.log(username.toLowerCase())
+    console.log(password)
 
-    loginUser(data.username, data.password)
+    loginUser(username.toLowerCase(), password)
   }
 
   // temporary state

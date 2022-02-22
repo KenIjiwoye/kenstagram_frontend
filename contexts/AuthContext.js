@@ -1,5 +1,5 @@
 import React from 'react'
-import { signinUser, registerUser } from '../services/authService'
+import { signinUser, registerUser, signoutUser } from '../services/authService'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const AuthContext = React.createContext();
@@ -42,6 +42,7 @@ export default function AuthProvider({ children }) {
   const logoutUser = async () => {
     setLoading(true);
     try {
+      await signoutUser()
       await AsyncStorage.clear();
       setAuthenticated(false);
       setAuthToken(null);
@@ -53,18 +54,35 @@ export default function AuthProvider({ children }) {
     }
   }
 
-  React.useEffect(() => {
-    const checkAuth = async () => {
-      const token = await AsyncStorage.getItem('authToken')
-      if (authToken === token) {
-        setAuthenticated(true)
-        setAuthToken(token)
-      } else {
-        setAuthenticated(false)
-        setAuthToken(null)
-      }
+  const load = async () => {
+    try {
+      let token = await AsyncStorage.getItem('@authToken')
 
+      if (token !== null) {
+        setAuthToken(token);
+        setAuthenticated(true);
+        setLoading(false)
+      }
+    } catch (err) {
+      console.warn(err);
+      setAuthenticated(false);
+        setLoading(false)
     }
+  }
+
+  React.useEffect(() => {
+    load();
+    // const checkAuth = async () => {
+    //   const token = await AsyncStorage.getItem('authToken')
+    //   if (authToken === token) {
+    //     setAuthenticated(true)
+    //     setAuthToken(token)
+    //   } else {
+    //     setAuthenticated(false)
+    //     setAuthToken(null)
+    //   }
+
+    // }
 
   }, [])
 
@@ -81,6 +99,7 @@ export default function AuthProvider({ children }) {
       setLoading,
       loginUser,
       logoutUser,
+      setUser
     }}>
       {children}
     </AuthContext.Provider>

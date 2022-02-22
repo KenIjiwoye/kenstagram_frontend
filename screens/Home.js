@@ -6,7 +6,7 @@ import {
   BottomNavigationTab,
   Icon,
 } from "@ui-kitten/components";
-import AuthProvider, { AuthContext } from "../contexts/AuthContext";
+// import AuthProvider, { AuthContext } from "../contexts/AuthContext";
 
 import Profile from "./Profile";
 import Feed from "./Feed";

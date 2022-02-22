@@ -8,7 +8,7 @@ import CONSTANTS, {baseUrl} from "../constants";
 
 const Profile = ({navigation, authCtx}) => {
   const userId = 1;
-  const { isLoading, isError, data, error } = useQuery(['posts', userId], () => getUserPosts(userId))
+  // const { isLoading, isError, data, error } = useQuery(['posts', userId], () => getUserPosts(userId))
 
   // React.useEffect(() => {
   //   getUserPosts(1)
@@ -101,15 +101,15 @@ const Profile = ({navigation, authCtx}) => {
   //   <Image source={{ uri: `${item.mainImg}`}} style={styles.thumbnail} />
   // );
 
-  if (isLoading){
-   return <Loading />
-  }
+  // if (isLoading){
+  //  return <Loading />
+  // }
 
-  if (isError) {
-    return <Text>Error: {error.message}</Text>
-  }
+  // if (isError) {
+  //   return <Text>Error: {error.message}</Text>
+  // }
 
-  console.warn('the data from react query', data)
+  // console.warn('the data from react query', data)
 
   return (
     <Layout style={styles.container}>
@@ -184,13 +184,13 @@ const Profile = ({navigation, authCtx}) => {
           Temporary Logout
         </Button>
         <Divider style={{ marginTop: 8 }} />
-        <FlatList
-        data={data.data}
+        {/* <FlatList
+        data={mData}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         // horizontal
         numColumns={3}
-         />
+         /> */}
       </SafeAreaView>
     </Layout>
   );

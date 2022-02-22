@@ -12,7 +12,7 @@ const postRequest = async (url, data, action) => {
             method: action,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ1MDk0Mjk0LCJleHAiOjE2NDc2ODYyOTR9.YPoTWo6sGI1yY2HDYKB7GfjOhKvl1wuUJ7lClTea2fU'}`
+                'Authorization': `Bearer ${token}`
             }
         });
         return res.json();
@@ -21,7 +21,7 @@ const postRequest = async (url, data, action) => {
             method: action,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ1MDk0Mjk0LCJleHAiOjE2NDc2ODYyOTR9.YPoTWo6sGI1yY2HDYKB7GfjOhKvl1wuUJ7lClTea2fU'}`
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(data)
         });
@@ -57,12 +57,12 @@ export const getUserPosts = (currentUserId) => {
     return postRequest(`${CONSTANTS.POSTS_URL}?${query}`,null,'GET')
 }
 
-export const signinUser = (identifier, password) => {
-    const user = { identifier, password }
-    return postRequest(CONSTANTS.SIGNIN_URL, user, 'POST')
-}
+// export const signinUser = (identifier, password) => {
+//     const user = { identifier, password }
+//     return postRequest(CONSTANTS.SIGNIN_URL, user, 'POST')
+// }
 
-export const registerUser = (username, email, password) => {
-    const user = { username, email, password }
-    return postRequest(CONSTANTS.REGISTER_URL, user, 'POST')
-}
+// export const registerUser = (username, email, password) => {
+//     const user = { username, email, password }
+//     return postRequest(CONSTANTS.REGISTER_URL, user, 'POST')
+// }
