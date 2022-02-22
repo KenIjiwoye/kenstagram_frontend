@@ -3,11 +3,26 @@ import { View, Text, StyleSheet } from "react-native";
 import { useFonts, Redressed_400Regular } from "@expo-google-fonts/redressed";
 import AppLoading from "expo-app-loading";
 import { Layout, Input, Button, Divider } from "@ui-kitten/components";
+import { useForm, Controller } from "react-hook-form";
 
-const Register = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
+const Register = ({ navigation, registerUser }) => {
+   // react hook forms
+   const { control, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: {
+      username: '',
+      email: '',
+      password: ''
+    }
+  });
+  const onSubmit = data => {
+    const {username,email,password} = data;
+    console.log(username.toLowerCase())
+    console.log(email.toLowerCase())
+    console.log(password)
+
+    registerUser(username.toLowerCase(), email.toLowerCase(), password)
+  }
+
   let [fontsLoaded] = useFonts({
     Redressed_400Regular,
   });
@@ -20,26 +35,62 @@ const Register = ({ navigation }) => {
       <Text style={styles.logoText}>Kenstagram</Text>
       <Text style={styles.subText}>Register</Text>
       <Divider />
-      <Input
-        style={styles.input}
-        placeholder="Email address"
-        value={email}
-        keyboardType="email-address"
-        onChangeText={(val) => setEmail(val)}
+     <Controller
+        control={control}
+        rules={{
+         required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            placeholder='Username'
+          />
+        )}
+        name="username"
       />
-      <Input
-        style={styles.input}
-        placeholder="Full Name"
-        value={email}
-        onChangeText={(val) => setName(val)}
+      {errors.username && <Text>This is required.</Text>}
+    
+     <Controller
+        control={control}
+        rules={{
+         required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            placeholder='Email'
+            keyboardType='email-address'
+          />
+        )}
+        name="email"
       />
-      <Input
-        style={styles.input}
-        placeholder="Username"
-        value={email}
-        onChangeText={(val) => setUsername(val)}
+      {errors.email && <Text>This is required.</Text>}
+
+      <Controller
+        control={control}
+        rules={{
+         required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            placeholder='password'
+            secureTextEntry
+          />
+        )}
+        name="password"
       />
-      <Button style={styles.authBtn}>Register</Button>
+      {errors.password && <Text>This is required.</Text>}
+      <Button onPress={handleSubmit(onSubmit)} style={styles.authBtn}>Register</Button>
       <Text
         onPress={() => navigation.navigate("Log In")}
         style={styles.authLinks}
@@ -66,7 +117,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   input: {
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     // marginRight: 48,
     // marginLeft: 48,
   },

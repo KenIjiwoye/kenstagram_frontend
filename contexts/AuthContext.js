@@ -12,6 +12,33 @@ export default function AuthProvider({ children }) {
 
 
 
+  const registerAuthUser = async (username, email, password) => {
+    registerUser(username, email, password)
+      .then(async u => {
+        console.log('AUTH_CTX_FN register ===>>>', u)
+        setLoading(true)
+        setAuthToken(u.auth_token);
+        setAuthenticated(true);
+        setUser(u.user);
+        try {
+          const token = JSON.stringify(u.auth_token)
+          await AsyncStorage.setItem('@authToken', token)
+          setLoading(false);
+        } catch (err) {
+          console.warn('asyncstorage error', err)
+          setAuthToken(null);
+          setAuthenticated(false);
+          setLoading(false);
+        }
+      })
+      .catch(err => {
+        setLoading(false)
+        setAuthenticated(false)
+        setAuthToken(null)
+        console.warn(err)
+      })
+  }
+
   const loginUser = async (username, password) => {
     signinUser(username, password)
       .then(async u => {
@@ -99,7 +126,8 @@ export default function AuthProvider({ children }) {
       setLoading,
       loginUser,
       logoutUser,
-      setUser
+      setUser,
+      registerAuthUser
     }}>
       {children}
     </AuthContext.Provider>

@@ -26,6 +26,20 @@ export const signinUser = async (username,password) => {
     // return authRequest(CONSTANTS.SIGNIN_URL,user,'POST')
 }
 
+// export const registerUser = async (username, email,password) => {
+//     const user = {username,email,password}
+//     const opts = {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({user: user})
+//     }
+//     let res = await fetch(`${CONSTANTS.REGISTER_URL}`, opts)
+//     return res.json();
+//     // return authRequest(CONSTANTS.SIGNIN_URL,user,'POST')
+// }
+
 export const signoutUser = async () => {
     const token = await AsyncStorage.getItem('@authToken');
     const opts = {

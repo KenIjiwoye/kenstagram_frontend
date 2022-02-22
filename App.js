@@ -64,7 +64,9 @@ export default function App() {
                   <NavigationContainer>
                     {ctx.loading && (<Loading />)}
                     {!ctx.loading && !ctx.authenticated && (ctx.authToken === null) && (<Stack.Navigator initialRouteName="Login" headerMode={false}>
-                      <Stack.Screen name="Register" component={Register} />
+                    <Stack.Screen name="Register">
+                        {props => <Register {...props} registerUser={ctx.registerAuthUser} />}
+                      </Stack.Screen>
                       <Stack.Screen name="Login">
                         {props => <Login {...props} loginUser={ctx.loginUser} />}
                       </Stack.Screen>
