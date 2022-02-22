@@ -8,31 +8,20 @@ export default function AuthProvider({ children }) {
   const [authenticated, setAuthenticated] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [authToken, setAuthToken] = React.useState(null);
+  const [user, setUser] = React.useState(null);
 
-  // const getData = async () => {
-  //     try {
-  //       const value = await AsyncStorage.getItem('@authToken')
-  //       if (value !== null) {
-  //         // value previously stored
-  //         console.log('storage value', value);
-  //         setAuthToken(value);
-  //         setAuthenticated(true);
-  //       }
-  //     } catch (e) {
-  //       // error reading value
-  //       setAuthToken(null);
-  //         setAuthenticated(false);
-  //     }
-  //   }
 
-  const loginUser = async (identifier, password) => {
-    signinUser(identifier, password)
+
+  const loginUser = async (username, password) => {
+    signinUser(username, password)
       .then(async u => {
+        console.log('AUTH_CTX_FN ===>>>', u)
         setLoading(true)
-        setAuthToken(u.jwt);
+        setAuthToken(u.auth_token);
         setAuthenticated(true);
-        const token = JSON.stringify(u.jwt)
+        setUser(u.user);
         try {
+          const token = JSON.stringify(u.auth_token)
           await AsyncStorage.setItem('@authToken', token)
           setLoading(false);
         } catch (err) {

@@ -11,14 +11,14 @@ const Login = ({ navigation, loginUser }) => {
   // react hook forms
   const { control, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
-      email: '',
+      username: '',
       password: ''
     }
   });
   const onSubmit = data => {
     console.log(data)
 
-    loginUser(data.email, data.password)
+    loginUser(data.username, data.password)
   }
 
   // temporary state
@@ -55,12 +55,12 @@ const Login = ({ navigation, loginUser }) => {
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
-            placeholder='Email or username'
+            placeholder='Username'
           />
         )}
-        name="email"
+        name="username"
       />
-      {errors.email && <Text>This is required.</Text>}
+      {errors.username && <Text>This is required.</Text>}
 
       <Controller
         control={control}
