@@ -55,7 +55,7 @@ export default function AuthProvider({ children }) {
         console.warn(err)
       })
   }
-// @TODO find out why the user obj is missing on login
+
   const loginUser = async (username, password) => {
     await signinUser(username, password)
       .then(async u => {
@@ -71,7 +71,7 @@ export default function AuthProvider({ children }) {
           Toast.show({
             type: 'success',
             text1: 'Sign In was successful!!',
-            text2: `Welcome back, ${u.username}`
+            text2: `Welcome back, ${u.user.username}`
           });
         } catch (err) {
           console.warn('asyncstorage error', err)
@@ -83,8 +83,6 @@ export default function AuthProvider({ children }) {
       })
       .catch(err => {
         setLoading(false)
-        // setAuthenticated(false)
-        // setAuthToken(null)
         console.warn('sign in user error in auth context ===>>>',err)
         Toast.show({
           type: 'error',
@@ -140,9 +138,6 @@ export default function AuthProvider({ children }) {
     load();
 
   }, [])
-
-  // console.log('Auth context authToken', authToken)
-  // console.log('Auth context authenticated', authenticated)
 
   return (
     <AuthContext.Provider value={{

@@ -22,21 +22,6 @@ const Register = ({ navigation, registerUser }) => {
     console.log(password)
 
      await registerUser(username.toLowerCase(), email.toLowerCase(), password)
-      //       .then(() => (
-      //         Toast.show({
-      //           type: 'success',
-      //           text1: 'Sign up was successful!!',
-      //           text2: 'Please log into your account'
-      //         })
-      //       ))
-      //       .catch((err) => (Toast.show({
-      //         type: 'error',
-      //         text1: 'A problem with your sign up!',
-      //         text2: 'Please check the values and try again'
-      //       })
-      //       // navigation.navigate('Register')))
-      //       // reset({username,email,password})
-      // ))
     
   }
 

@@ -23,10 +23,7 @@ const Login = ({ navigation, loginUser }) => {
     loginUser(username.toLowerCase(), password)
   }
 
-  // temporary state
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
+
   let [fontsLoaded] = useFonts({
     Redressed_400Regular,
   });
@@ -39,13 +36,7 @@ const Login = ({ navigation, loginUser }) => {
       <Text style={styles.logoText}>Kenstagram</Text>
       <Text style={styles.subText}>Login</Text>
       <Divider />
-      {/* <Input
-        style={styles.input}
-        placeholder="Email address"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={(val) => setEmail(val)}
-      /> */}
+
       <Controller
         control={control}
         rules={{
@@ -82,12 +73,7 @@ const Login = ({ navigation, loginUser }) => {
         name="password"
       />
       {errors.password && <Text>This is required.</Text>}
-      {/* <Input
-        style={styles.input}
-        placeholder="Username"
-        value={email}
-        onChangeText={(val) => setUsername(val)}
-      /> */}
+
       <Button onPress={handleSubmit(onSubmit)} style={styles.authBtn}>Log In</Button>
       <Text
         onPress={() => navigation.navigate("Register")}
