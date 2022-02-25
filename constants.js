@@ -5,7 +5,8 @@ const CONSTANTS = {
     REGISTER_URL: `${baseUrl}/users`,
     SIGNIN_URL: `${baseUrl}/users/sign_in`,
     SIGNOUT_URL: `${baseUrl}/users/sign_out`,
-    POSTS_URL: `${baseUrl}/api/v1/posts`
+    POSTS_URL: `${baseUrl}/api/v1/posts`,
+    USER_POSTS_URL: `${baseUrl}/api/v1/my_posts`,
 }
 
 export default CONSTANTS

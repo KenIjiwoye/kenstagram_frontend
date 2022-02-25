@@ -11,7 +11,7 @@ import {
 import Profile from "./Profile";
 import Feed from "./Feed";
 import AddPost from "./AddPost";
-import PostProvier from "../contexts/PostContext";
+import PostProvider from "../contexts/PostContext";
 
 const Tab = createBottomTabNavigator();
 
@@ -39,7 +39,7 @@ const useBottomNavigationState = (initialState = 0) => {
 
 const Home = ({ authContext }) => {
   return (
-    <PostProvier>
+    <PostProvider>
       <Tab.Navigator tabBar={(props) => <BottomTabBar {...props} />}>
         <Tab.Screen name="Home" component={Feed} />
         <Tab.Screen name="Add Post" component={AddPost} />
@@ -47,7 +47,7 @@ const Home = ({ authContext }) => {
           {props => <Profile {...props} authCtx={authContext} />}
         </Tab.Screen>
       </Tab.Navigator>
-    </PostProvier>
+    </PostProvider>
   )
 };
 

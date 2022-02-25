@@ -38,25 +38,30 @@ export const getPosts = () => {
 export const getPost = (postId) => {
     const post = postId
     return postRequest(`${CONSTANTS.POSTS_URL/post}`,null,'GET')
+    
 }
 
-export const getUserPosts = (currentUserId) => {
-    // posts?populate=*&filters[user_id][id][$eq]=1
-    const query = qs.stringify({
-        populate: '*',
-        filters: {
-            user_id: {
-                id: {
-                    $eq: currentUserId
-                }
-            }
-        }
-      }, {
-        encodeValuesOnly: true,
-      });
-    const currentUser = currentUserId
-    return postRequest(`${CONSTANTS.POSTS_URL}?${query}`,null,'GET')
+export const getUserPosts = () => {
+  return postRequest(CONSTANTS.USER_POSTS_URL, null, 'GET')
 }
+
+// export const getUserPosts = (currentUserId) => {
+//     // posts?populate=*&filters[user_id][id][$eq]=1
+//     const query = qs.stringify({
+//         populate: '*',
+//         filters: {
+//             user_id: {
+//                 id: {
+//                     $eq: currentUserId
+//                 }
+//             }
+//         }
+//       }, {
+//         encodeValuesOnly: true,
+//       });
+//     const currentUser = currentUserId
+//     return postRequest(`${CONSTANTS.POSTS_URL}?${query}`,null,'GET')
+// }
 
 // TODO: move most of this logic to the Post Context, once it is created
 export const createPost = async (image,caption) => {

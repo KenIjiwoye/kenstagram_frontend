@@ -28,6 +28,7 @@ import Post from "../components/Post";
 import { useQuery } from "react-query";
 import { PostContext } from "../contexts/PostContext";
 import Loading from "../components/Loading";
+import { getPosts } from "../services/postService";
 
 // const data = [
 //   {
@@ -70,9 +71,10 @@ const Feed = () => {
     Redressed_400Regular,
   });
 
-  const { data, isLoading, isError, error } = React.useContext(PostContext);
+  const { getAllPosts } = React.useContext(PostContext);
+  const { isLoading, isError, data, error } = useQuery('posts', getPosts)
 
-  console.log('testing the posts query ===>>>', data)
+  // console.log('testing the posts query ===>>>', data)
 
   const renderItem = ({ item }) => (
     <Post

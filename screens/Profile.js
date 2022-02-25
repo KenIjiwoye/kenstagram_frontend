@@ -9,6 +9,7 @@ import CONSTANTS, {baseUrl} from "../constants";
 const Profile = ({navigation, authCtx}) => {
   const userId = 1;
   // const { isLoading, isError, data, error } = useQuery(['posts', userId], () => getUserPosts(userId))
+  const { isLoading, isError, data, error } = useQuery('userPosts', getUserPosts)
 
   // React.useEffect(() => {
   //   getUserPosts(1)
@@ -20,94 +21,94 @@ const Profile = ({navigation, authCtx}) => {
     await authCtx.logoutUser()
   }
 
-  const mData = [
-    {
-      id: 1,
-      userName: "ken",
-      profilePic:
-        "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-bmw-m4-coupe-111-1600787953.jpg?crop=0.747xw:0.630xh;0.111xw,0.370xh&resize=1200:*",
-      caption:
-        "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
-      likes: 88,
-      mainImg:
-        "https://cdn.bmwblog.com/wp-content/uploads/2020/11/2021-bmw-m4-toronto-red-08-1536x1024.jpg",
-    },
-    {
-      id: 2,
-      userName: "harry",
-      profilePic:
-        "https://cdn.slashgear.com/wp-content/uploads/2019/07/P6286325-1280x720.jpg",
-      caption:
-        "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
-      likes: 88,
-      mainImg:
-        "https://cdn.slashgear.com/wp-content/uploads/2019/07/P6286325-1280x720.jpg",
-    },
-    {
-      id: 3,
-      userName: "tom",
-      profilePic:
-        "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-bmw-m4-coupe-111-1600787953.jpg?crop=0.747xw:0.630xh;0.111xw,0.370xh&resize=1200:*",
-      caption:
-        "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
-      likes: 88,
-      mainImg:
-        "https://cdn.motor1.com/images/mgl/KpGLN/s1/2021-bentley-bentayga.webp",
-    },
-    {
-      id: 4,
-      userName: "ken",
-      profilePic:
-        "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-bmw-m4-coupe-111-1600787953.jpg?crop=0.747xw:0.630xh;0.111xw,0.370xh&resize=1200:*",
-      caption:
-        "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
-      likes: 88,
-      mainImg:
-        "https://cdn.bmwblog.com/wp-content/uploads/2020/11/2021-bmw-m4-toronto-red-08-1536x1024.jpg",
-    },
-    {
-      id: 5,
-      userName: "harry",
-      profilePic:
-        "https://cdn.slashgear.com/wp-content/uploads/2019/07/P6286325-1280x720.jpg",
-      caption:
-        "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
-      likes: 88,
-      mainImg:
-        "https://cdn.slashgear.com/wp-content/uploads/2019/07/P6286325-1280x720.jpg",
-    },
-    {
-      id: 6,
-      userName: "tom",
-      profilePic:
-        "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-bmw-m4-coupe-111-1600787953.jpg?crop=0.747xw:0.630xh;0.111xw,0.370xh&resize=1200:*",
-      caption:
-        "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
-      likes: 88,
-      mainImg:
-        "https://cdn.motor1.com/images/mgl/KpGLN/s1/2021-bentley-bentayga.webp",
-    },
+  // const mData = [
+  //   {
+  //     id: 1,
+  //     userName: "ken",
+  //     profilePic:
+  //       "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-bmw-m4-coupe-111-1600787953.jpg?crop=0.747xw:0.630xh;0.111xw,0.370xh&resize=1200:*",
+  //     caption:
+  //       "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
+  //     likes: 88,
+  //     mainImg:
+  //       "https://cdn.bmwblog.com/wp-content/uploads/2020/11/2021-bmw-m4-toronto-red-08-1536x1024.jpg",
+  //   },
+  //   {
+  //     id: 2,
+  //     userName: "harry",
+  //     profilePic:
+  //       "https://cdn.slashgear.com/wp-content/uploads/2019/07/P6286325-1280x720.jpg",
+  //     caption:
+  //       "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
+  //     likes: 88,
+  //     mainImg:
+  //       "https://cdn.slashgear.com/wp-content/uploads/2019/07/P6286325-1280x720.jpg",
+  //   },
+  //   {
+  //     id: 3,
+  //     userName: "tom",
+  //     profilePic:
+  //       "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-bmw-m4-coupe-111-1600787953.jpg?crop=0.747xw:0.630xh;0.111xw,0.370xh&resize=1200:*",
+  //     caption:
+  //       "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
+  //     likes: 88,
+  //     mainImg:
+  //       "https://cdn.motor1.com/images/mgl/KpGLN/s1/2021-bentley-bentayga.webp",
+  //   },
+  //   {
+  //     id: 4,
+  //     userName: "ken",
+  //     profilePic:
+  //       "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-bmw-m4-coupe-111-1600787953.jpg?crop=0.747xw:0.630xh;0.111xw,0.370xh&resize=1200:*",
+  //     caption:
+  //       "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
+  //     likes: 88,
+  //     mainImg:
+  //       "https://cdn.bmwblog.com/wp-content/uploads/2020/11/2021-bmw-m4-toronto-red-08-1536x1024.jpg",
+  //   },
+  //   {
+  //     id: 5,
+  //     userName: "harry",
+  //     profilePic:
+  //       "https://cdn.slashgear.com/wp-content/uploads/2019/07/P6286325-1280x720.jpg",
+  //     caption:
+  //       "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
+  //     likes: 88,
+  //     mainImg:
+  //       "https://cdn.slashgear.com/wp-content/uploads/2019/07/P6286325-1280x720.jpg",
+  //   },
+  //   {
+  //     id: 6,
+  //     userName: "tom",
+  //     profilePic:
+  //       "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-bmw-m4-coupe-111-1600787953.jpg?crop=0.747xw:0.630xh;0.111xw,0.370xh&resize=1200:*",
+  //     caption:
+  //       "This iiiis my instagram clone app by Ken This is my instagram clone app by Ken This is my instagram clone app by Ken",
+  //     likes: 88,
+  //     mainImg:
+  //       "https://cdn.motor1.com/images/mgl/KpGLN/s1/2021-bentley-bentayga.webp",
+  //   },
     
-  ];
+  // ];
 
 
   const renderItem = ({ item }) => {
     // console.warn('LOGGING THE renderItem ==>>', item.attributes.user_id)
     return(
-      <Image source={{ uri: `${baseUrl}${item.attributes.image.data.attributes.formats.medium.url}`}} style={styles.thumbnail} />
+      <Image source={{ uri: item.image }} style={styles.thumbnail} />
     )
   };
   // const renderItem = ({ item, index }) => (
   //   <Image source={{ uri: `${item.mainImg}`}} style={styles.thumbnail} />
   // );
 
-  // if (isLoading){
-  //  return <Loading />
-  // }
+  if (isLoading){
+   return <Loading />
+  }
 
-  // if (isError) {
-  //   return <Text>Error: {error.message}</Text>
-  // }
+  if (isError) {
+    return <Text>Error: {error.message}</Text>
+  }
 
   // console.warn('the data from react query', data)
 
@@ -184,13 +185,13 @@ const Profile = ({navigation, authCtx}) => {
           Temporary Logout
         </Button>
         <Divider style={{ marginTop: 8 }} />
-        {/* <FlatList
-        data={mData}
+        <FlatList
+        data={data}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         // horizontal
         numColumns={3}
-         /> */}
+         />
       </SafeAreaView>
     </Layout>
   );

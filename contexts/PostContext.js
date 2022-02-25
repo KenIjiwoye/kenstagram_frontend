@@ -6,19 +6,18 @@ import { useQuery } from 'react-query';
 
 export const PostContext = React.createContext();
 
-export default function PostProvier({children}) {
+export default function PostProvider({children}) {
     const [posts,setPosts] = React.useState(null);
-    const [loading,setLoading] = React.useState(true);
 
     // const { isLoading, isError, data, error } = useQuery('posts', getPosts)
-    const { isLoading, isError, data, error } = useQuery('posts', () => getPosts());
+    // const { isLoading, isError, data, error } = useQuery('posts', () => getPosts());
     
 
     const getAllPosts = async () => {
         try {
             const allPosts = await getPosts();
-            setPosts(allPosts);
-            setLoading(false);
+            // setPosts(allPosts);
+            // setLoading(false);
         } catch (err) {
             console.warn('all post loading error', err);
             Toast.show({
@@ -35,11 +34,6 @@ export default function PostProvier({children}) {
     // },[])
     return(
         <PostContext.Provider value={{
-            posts,
-            isLoading,
-            isError,
-            data,
-            error,
             getAllPosts
         }} >
             {children}

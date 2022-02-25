@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, LogBox } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
@@ -12,6 +12,8 @@ import AuthProvider, { AuthContext } from "./contexts/AuthContext";
 import { QueryClient, QueryClientProvider } from 'react-query'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+
+LogBox.ignoreLogs(['Setting a timer']);
 
 // UI Kitten
 import * as eva from "@eva-design/eva";
