@@ -1,6 +1,7 @@
 import CONSTANTS from "../constants";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import qs from 'qs'
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 const postRequest = async (url, data, action) => {
     const token = await AsyncStorage.getItem('@authToken');
@@ -57,12 +58,58 @@ export const getUserPosts = (currentUserId) => {
     return postRequest(`${CONSTANTS.POSTS_URL}?${query}`,null,'GET')
 }
 
-// export const signinUser = (identifier, password) => {
-//     const user = { identifier, password }
-//     return postRequest(CONSTANTS.SIGNIN_URL, user, 'POST')
-// }
+// TODO: move most of this logic to the Post Context, once it is created
+export const createPost = async (image,caption) => {
+    // formData info
+    const fData = new FormData();
+    fData.append('image', {
+      name: image.uri.split('/').pop(),
+      type: 'image/jpeg',
+      uri: Platform.OS === 'android' ? image.uri : image.uri.replace('file://', ''),
+    });
 
-// export const registerUser = (username, email, password) => {
-//     const user = { username, email, password }
-//     return postRequest(CONSTANTS.REGISTER_URL, user, 'POST')
-// }
+    fData.append('caption', caption)
+    // fData.append('user_id', 1)
+    // Object.keys(body).forEach((key) => {
+    //   data.append(key, body[key]);
+    // });
+
+    console.log('Form data', {user: fData})
+
+    
+    const token = await AsyncStorage.getItem('@authToken')
+
+    fetch('http://192.168.43.47:3000/api/v1/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${token}`,
+        'Accept': '*/*'
+      },
+      body: fData
+    })
+    .then(res => res.json())
+    .then(res => {
+      if (res.error !== null) {
+        console.warn('upload failed!! ===>>>', res);
+      Toast.show({
+        type: 'error',
+        text1: `${res.exception}`
+      });
+      } else {
+        console.log('upload success ===>>>', res);
+        Toast.show({
+          type: 'success',
+          text1: 'New Post up was successful!!'
+        });
+      }
+     
+    })
+    .catch(err => {
+      console.warn('Post error', err);
+      Toast.show({
+        type: 'error',
+        text1: `${err}`
+      });
+    })
+}
