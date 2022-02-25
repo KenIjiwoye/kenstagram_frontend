@@ -97,7 +97,7 @@ export default function AuthProvider({ children }) {
   const logoutUser = async () => {
     setLoading(true);
     try {
-      await signoutUser()
+      await signoutUser(authToken)
       await AsyncStorage.removeItem('@authToken');
       setAuthenticated(false);
       setAuthToken(null);

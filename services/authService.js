@@ -36,6 +36,7 @@ export const signoutUser = async () => {
     const opts = {
         method: 'DELETE',
         headers: {
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${pToken}`,
             'Accept': '*/*',
 
