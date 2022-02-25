@@ -5,7 +5,8 @@ const authRequest = async (url,payload,action) => {
     const res = await fetch(url, {
         method: action,
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': '*/*'
         },
         body: JSON.stringify({user: payload})
     });
@@ -13,39 +14,31 @@ const authRequest = async (url,payload,action) => {
 }
 
 export const signinUser = async (username,password) => {
-    const user = {username,password}
-    const opts = {
+    let user = {username,password}
+    let opts = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': '*/*'
         },
         body: JSON.stringify({user: user})
     }
     let res = await fetch(`${CONSTANTS.SIGNIN_URL}`, opts)
-    return res.json();
+    console.log('CHECKING OUT THE AUTH SERVICE ==>>', res.json())
+     return res.json();
     // return authRequest(CONSTANTS.SIGNIN_URL,user,'POST')
 }
 
-// export const registerUser = async (username, email,password) => {
-//     const user = {username,email,password}
-//     const opts = {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({user: user})
-//     }
-//     let res = await fetch(`${CONSTANTS.REGISTER_URL}`, opts)
-//     return res.json();
-//     // return authRequest(CONSTANTS.SIGNIN_URL,user,'POST')
-// }
 
 export const signoutUser = async () => {
     const token = await AsyncStorage.getItem('@authToken');
+    const pToken = JSON.parse(token)
     const opts = {
         method: 'DELETE',
         headers: {
-            'Authorization': `${token}`
+            'Authorization': `Bearer ${pToken}`,
+            'Accept': '*/*',
+
         }
     }
     const res = await fetch(`${CONSTANTS.SIGNOUT_URL}`, opts)

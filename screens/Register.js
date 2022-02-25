@@ -4,23 +4,40 @@ import { useFonts, Redressed_400Regular } from "@expo-google-fonts/redressed";
 import AppLoading from "expo-app-loading";
 import { Layout, Input, Button, Divider } from "@ui-kitten/components";
 import { useForm, Controller } from "react-hook-form";
+import Toast from 'react-native-toast-message';
 
 const Register = ({ navigation, registerUser }) => {
-   // react hook forms
-   const { control, handleSubmit, formState: { errors } } = useForm({
+  // react hook forms
+  const { control, handleSubmit, formState: { errors }, reset } = useForm({
     defaultValues: {
       username: '',
       email: '',
       password: ''
-    }
+    },
   });
-  const onSubmit = data => {
-    const {username,email,password} = data;
+  const onSubmit = async data => {
+    const { username, email, password } = data;
     console.log(username.toLowerCase())
     console.log(email.toLowerCase())
     console.log(password)
 
-    registerUser(username.toLowerCase(), email.toLowerCase(), password)
+     await registerUser(username.toLowerCase(), email.toLowerCase(), password)
+      //       .then(() => (
+      //         Toast.show({
+      //           type: 'success',
+      //           text1: 'Sign up was successful!!',
+      //           text2: 'Please log into your account'
+      //         })
+      //       ))
+      //       .catch((err) => (Toast.show({
+      //         type: 'error',
+      //         text1: 'A problem with your sign up!',
+      //         text2: 'Please check the values and try again'
+      //       })
+      //       // navigation.navigate('Register')))
+      //       // reset({username,email,password})
+      // ))
+    
   }
 
   let [fontsLoaded] = useFonts({
@@ -35,10 +52,10 @@ const Register = ({ navigation, registerUser }) => {
       <Text style={styles.logoText}>Kenstagram</Text>
       <Text style={styles.subText}>Register</Text>
       <Divider />
-     <Controller
+      <Controller
         control={control}
         rules={{
-         required: true,
+          required: true,
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
@@ -52,11 +69,11 @@ const Register = ({ navigation, registerUser }) => {
         name="username"
       />
       {errors.username && <Text>This is required.</Text>}
-    
-     <Controller
+
+      <Controller
         control={control}
         rules={{
-         required: true,
+          required: true,
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
@@ -75,7 +92,7 @@ const Register = ({ navigation, registerUser }) => {
       <Controller
         control={control}
         rules={{
-         required: true,
+          required: true,
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
@@ -92,7 +109,7 @@ const Register = ({ navigation, registerUser }) => {
       {errors.password && <Text>This is required.</Text>}
       <Button onPress={handleSubmit(onSubmit)} style={styles.authBtn}>Register</Button>
       <Text
-        onPress={() => navigation.navigate("Log In")}
+        onPress={() => navigation.navigate("Login")}
         style={styles.authLinks}
         style={styles.authLinks}
       >

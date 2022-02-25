@@ -11,6 +11,7 @@ import AuthProvider, { AuthContext } from "./contexts/AuthContext";
 // react-query
 import { QueryClient, QueryClientProvider } from 'react-query'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 // UI Kitten
 import * as eva from "@eva-design/eva";
@@ -29,27 +30,6 @@ const Stack = createStackNavigator();
 const queryClient = new QueryClient()
 
 export default function App() {
-  const [authenticated, setAuthenticated] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
-  const [authToken, setAuthToken] = React.useState(null);
-  const [user, setUser] = React.useState(null);
-
-  React.useEffect(() => {
-    const checkAuth = async () => {
-      const token = await AsyncStorage.getItem('authToken')
-      if (!token) {
-        setAuthToken(null)
-        setAuthenticated(false)
-        setUser(null)
-      }
-      if (authToken === token) {
-        setAuthenticated(true)
-        setAuthToken(token)
-      } 
-
-    }
-
-  }, [])
 
   return (
     <>
@@ -79,6 +59,7 @@ export default function App() {
                     </Stack.Navigator>)}
                   </NavigationContainer>
                   <StatusBar style="light" />
+                  <Toast />
                 </ApplicationProvider>
               )
             }}
