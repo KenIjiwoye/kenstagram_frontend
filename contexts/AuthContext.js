@@ -57,7 +57,7 @@ export default function AuthProvider({ children }) {
   }
 // @TODO find out why the user obj is missing on login
   const loginUser = async (username, password) => {
-    signinUser(username, password)
+    await signinUser(username, password)
       .then(async u => {
         console.log('AUTH_CTX_LOGIN ===>>>', u)
         setLoading(true)
