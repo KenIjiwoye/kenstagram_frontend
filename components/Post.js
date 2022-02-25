@@ -33,14 +33,14 @@ const Post = ({ userName, profilePic, caption, likes, mainImg }) => {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-
+// https://picsum.photos/200
   return (
     <Layout style={styles.container}>
       <KeyboardAvoidingView behavior="padding">
         <View style={styles.card}>
           <View style={styles.cardTop}>
             <View style={styles.cardTopLeft}>
-              <Avatar source={{ uri: profilePic }} />
+              <Avatar source={{ uri: profilePic ? profilePic : 'https://picsum.photos/100' }} />
               <Text style={styles.username}>{userName}</Text>
             </View>
             <Feather
@@ -50,7 +50,7 @@ const Post = ({ userName, profilePic, caption, likes, mainImg }) => {
               color="black"
             />
           </View>
-          <Image style={styles.image} source={{ uri: mainImg }} />
+          <Image style={styles.image} source={{ uri: mainImg ? mainImg : 'https://picsum.photos/400' }} />
           <View style={styles.iconRow}>
             <EvilIcons
               style={styles.iconRowItems}
@@ -71,7 +71,7 @@ const Post = ({ userName, profilePic, caption, likes, mainImg }) => {
               color="white"
             />
           </View>
-          <Text style={styles.likesText}>{likes} likes</Text>
+          <Text style={styles.likesText}>{likes ? likes : 0} likes</Text>
           <Text style={{ marginLeft: 16, marginRight: 16 }}>
             <Text style={styles.username}>username </Text>
             <Text style={styles.descriptionText}>{caption}</Text>
