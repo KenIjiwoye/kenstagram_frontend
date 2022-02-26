@@ -118,3 +118,35 @@ export const createPost = async (image,caption) => {
       });
     })
 }
+
+export const createPostImage = async (data) => {
+  const token = await AsyncStorage.getItem('@authToken')
+
+  fetch(`${CONSTANTS.POSTS_URL}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      'Authorization': `Bearer ${token}`,
+      'Accept': '*/*'
+    },
+    body: data
+  })
+  .then(res => res.json())
+  // .then(res => {
+  //   if (res.error === null) {
+  //       console.log('upload success ===>>>', res);
+  //     Toast.show({
+  //       type: 'success',
+  //       text1: 'New Post up was successful!!'
+  //     });
+  //   }
+   
+  // })
+  .catch(err => {
+    console.warn('Post error', err);
+    Toast.show({
+      type: 'error',
+      text1: `${err}`
+    });
+  })
+}

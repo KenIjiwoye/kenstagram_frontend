@@ -8,14 +8,19 @@ import { useForm, Controller } from "react-hook-form";
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createPost } from "../services/postService";
+import { PostContext } from "../contexts/PostContext";
+import Loading from "../components/Loading";
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
-const AddPost = () => {
+const AddPost = ({navigation}) => {
+  // post context
+  const {addNewPost, loading } = React.useContext(PostContext)
   const [image, setImage] = React.useState(null)
+  const [isBusy, setIsBusy] = React.useState(false)
    // react hook forms
-   const { control, handleSubmit, formState: { errors } } = useForm({
+   const { control, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm({
     defaultValues: {
       image: null,
       caption: ''
@@ -30,8 +35,20 @@ const AddPost = () => {
     console.log(caption)
     console.log(image)
 
-    createPost(image, caption)
+    try {
+      await addNewPost(image, caption)
+      reset({ ...data })
+      await navigation.navigate('Home')
+    } catch (err) {
+      
+    }
   }
+
+  React.useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset({ something: '' });
+    }
+  }, [formState, submittedData, reset]);
 
   const pickImage = async () => {
     // Ask the user for the permission to access the media library 
@@ -79,6 +96,10 @@ const AddPost = () => {
     }
   };
 
+
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <Layout style={styles.container}>
